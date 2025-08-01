@@ -35,7 +35,7 @@ Choose one of the following approaches based on your preference:
 **Steps:**
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Hanish0/food-delivery-backend.git
 cd food-delivery-backend
 ```
 
@@ -69,7 +69,7 @@ docker-compose --env-file .env up --build
 **Steps:**
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Hanish0/food-delivery-backend.git
 cd food-delivery-backend
 ```
 
@@ -211,7 +211,7 @@ For VPS or dedicated server deployment.
 #### Production Deployment
 ```bash
 # Clone repository
-git clone <your-repo>
+git clone https://github.com/Hanish0/food-delivery-backend.git
 cd food-delivery-backend
 
 # Set up environment
