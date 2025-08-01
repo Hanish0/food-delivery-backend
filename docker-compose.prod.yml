@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: food_delivery
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  user-service:
+    build: ./user-service
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      NODE_ENV: production
+      PORT: 3001
+      RESTAURANT_SERVICE_URL: http://restaurant-service:3002
+      DELIVERY_SERVICE_URL: http://delivery-service:3003
+    depends_on:
+      - postgres
+    ports:
+      - "3001:3001"
+
+  restaurant-service:
+    build: ./restaurant-service
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      NODE_ENV: production
+      PORT: 3002
+      USER_SERVICE_URL: http://user-service:3001
+      DELIVERY_SERVICE_URL: http://delivery-service:3003
+    depends_on:
+      - postgres
+    ports:
+      - "3002:3002"
+
+  delivery-service:
+    build: ./delivery-service
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      NODE_ENV: production
+      PORT: 3003
+      USER_SERVICE_URL: http://user-service:3001
+      RESTAURANT_SERVICE_URL: http://restaurant-service:3002
+    depends_on:
+      - postgres
+    ports:
+      - "3003:3003"
+
+volumes:
+  postgres_data:
