@@ -151,5 +151,4 @@ services:
 databases:
   - name: food-delivery-db
     databaseName: food_delivery
-    user: postgres
     plan: starter
